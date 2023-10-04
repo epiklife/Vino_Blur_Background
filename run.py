@@ -65,10 +65,15 @@ for image_file in image_files:
         cv2.resize(src=np.squeeze(result), dsize=(image.shape[1], image.shape[0]))
     ).astype(np.uint8)
 
-    blur_radius = 15
-    mask = cv2.GaussianBlur(mask, (blur_radius, blur_radius), 0)
+    mask_blur_radius = 101
+    blur_intensity = 105
+    blur_padding = 5
 
-    blurred_image = cv2.GaussianBlur(image, (51, 51), 0)
+    mask = cv2.GaussianBlur(
+        mask * 255, (mask_blur_radius, mask_blur_radius), blur_padding
+    )
+
+    blurred_image = cv2.GaussianBlur(image, (blur_intensity, blur_intensity), 0)
 
     image_c = image.copy()
 
